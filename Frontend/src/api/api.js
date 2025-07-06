@@ -1,5 +1,5 @@
 import axios from 'axios'
-const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5100/"
+const BASE_URL = (process.env.REACT_APP_API_URL || "http://localhost:5100/").replace(/\/$/, '')
 
 export const fetchParkings = async ({ user_id, setParkings }) => {
     try {
@@ -7,7 +7,7 @@ export const fetchParkings = async ({ user_id, setParkings }) => {
         if (user_id) {
             query += `?user_id=${user_id}`
         }
-        const result = await axios.get(`${BASE_URL}parking${query}`)
+        const result = await axios.get(`${BASE_URL}/parking${query}`)
         if (result?.data?.length) {
             setParkings(result?.data)
         }
@@ -19,7 +19,7 @@ export const fetchParkings = async ({ user_id, setParkings }) => {
 
 export const login = async ({ email, password, handleLoginSuccess, handleLoginFailure }) => {
     try {
-        const result = await axios.post(`${BASE_URL}user/login`, { email, password })
+        const result = await axios.post(`${BASE_URL}/user/login`, { email, password })
         if (result?.data?.token) {
             return handleLoginSuccess(result.data)
         }
@@ -32,7 +32,7 @@ export const login = async ({ email, password, handleLoginSuccess, handleLoginFa
 
 export const register = async ({ name, email, password, type, handleRegisterSuccess, handleRegisterFailure }) => {
     try {
-        const result = await axios.post(`${BASE_URL}user/register`, {
+        const result = await axios.post(`${BASE_URL}/user/register`, {
             name,
             email,
             password,
@@ -51,7 +51,7 @@ export const register = async ({ name, email, password, type, handleRegisterSucc
 
 export const createParking = async ({ body, handleCreateParkingSuccess, handleCreateParkingFailure }) => {
     try {
-        const result = await axios.post(`${BASE_URL}parking`, { ...body })
+        const result = await axios.post(`${BASE_URL}/parking`, { ...body })
         if (result?.data?.parking) {
             return handleCreateParkingSuccess(result.data)
         }
@@ -64,7 +64,7 @@ export const createParking = async ({ body, handleCreateParkingSuccess, handleCr
 
 export const updateParking = async ({ id, body, handleUpdateParkingSuccess, handleUpdateParkingFailure }) => {
     try {
-        const result = await axios.put(`${BASE_URL}parking/${id}`, { ...body })
+        const result = await axios.put(`${BASE_URL}/parking/${id}`, { ...body })
         if (result?.data?.message) {
             return handleUpdateParkingSuccess(result.data)
         }
@@ -96,7 +96,7 @@ export const fetchSpaces = async ({ user_id, parking_id, city, date, time, avail
         if (availability) {
             query += `availability=${availability}`
         }
-        const result = await axios.get(`${BASE_URL}space?${query}`)
+        const result = await axios.get(`${BASE_URL}/space?${query}`)
         if (result?.data?.length) {
             setSpaces(result?.data)
         }
@@ -108,7 +108,7 @@ export const fetchSpaces = async ({ user_id, parking_id, city, date, time, avail
 
 export const createSpace = async ({ body, handleCreateSpaceSuccess, handleCreateSpaceFailure }) => {
     try {
-        const result = await axios.post(`${BASE_URL}space`, { ...body })
+        const result = await axios.post(`${BASE_URL}/space`, { ...body })
         if (result?.data?.space) {
             return handleCreateSpaceSuccess(result.data)
         }
@@ -121,7 +121,7 @@ export const createSpace = async ({ body, handleCreateSpaceSuccess, handleCreate
 
 export const updateSpace = async ({ id, body, handleUpdateSpaceSuccess, handleUpdateSpaceFailure }) => {
     try {
-        const result = await axios.put(`${BASE_URL}space/${id}`, { ...body })
+        const result = await axios.put(`${BASE_URL}/space/${id}`, { ...body })
         if (result?.data?.message) {
             return handleUpdateSpaceSuccess(result.data)
         }
@@ -141,7 +141,7 @@ export const fetchBookings = async ({ owner_id, user_id, setBookings }) => {
         if(owner_id){
             query += `owner_id=${owner_id}&`;
         }
-        const result = await axios.get(`${BASE_URL}booking?${query}`)
+        const result = await axios.get(`${BASE_URL}/booking?${query}`)
         if (result?.data?.length) {
             setBookings(result?.data)
         }
@@ -153,7 +153,7 @@ export const fetchBookings = async ({ owner_id, user_id, setBookings }) => {
 
 export const createBooking = async ({ body, handleCreateBookingSuccess, handleCreateBookingFailure }) => {
     try {
-        const result = await axios.post(`${BASE_URL}booking`, { ...body })
+        const result = await axios.post(`${BASE_URL}/booking`, { ...body })
         console.log('createBooking ', result?.data);
         if (result?.data?.booking) {
             return handleCreateBookingSuccess(result.data)
@@ -167,7 +167,7 @@ export const createBooking = async ({ body, handleCreateBookingSuccess, handleCr
 export const resetPassword = async ({ user_id, body, handleResetPasswordSuccess, handleResetPasswordFailure }) => {
     try {
         console.log('body ', body);
-        const result = await axios.post(`${BASE_URL}user/resetPassword/${user_id}`, { ...body })
+        const result = await axios.post(`${BASE_URL}/user/resetPassword/${user_id}`, { ...body })
         console.log('resetPassword ', result?.data);
         if (result?.data?.user) {
             return handleResetPasswordSuccess(result.data)
@@ -181,7 +181,7 @@ export const resetPassword = async ({ user_id, body, handleResetPasswordSuccess,
 export const updateUser = async ({ user_id, body, handleUpdateUserSuccess, handleUpdateUserFailure }) => {
     try {
         console.log('body ', body);
-        const result = await axios.put(`${BASE_URL}user/${user_id}`, { ...body })
+        const result = await axios.put(`${BASE_URL}/user/${user_id}`, { ...body })
         console.log('updateUser ', result?.data);
         if (result?.data?.user) {
             return handleUpdateUserSuccess(result.data)
@@ -194,7 +194,7 @@ export const updateUser = async ({ user_id, body, handleUpdateUserSuccess, handl
 
 export const deleteParking = async ({ id, handleDeleteParkingSuccess, handleDeleteParkingFailure }) => {
     try {
-        const result = await axios.delete(`${BASE_URL}parking/${id}`)
+        const result = await axios.delete(`${BASE_URL}/parking/${id}`)
         if (result?.data?.message) {
             return handleDeleteParkingSuccess(result.message)
         }
@@ -208,7 +208,7 @@ export const deleteParking = async ({ id, handleDeleteParkingSuccess, handleDele
 
 export const deleteSpace = async ({ id, handleDeleteSpaceSuccess, handleDeleteSpaceFailure }) => {
     try {
-        const result = await axios.delete(`${BASE_URL}space/${id}`)
+        const result = await axios.delete(`${BASE_URL}/space/${id}`)
         if (result?.data?.message) {
             return handleDeleteSpaceSuccess(result.message)
         }
@@ -221,7 +221,7 @@ export const deleteSpace = async ({ id, handleDeleteSpaceSuccess, handleDeleteSp
 
 export const deleteBooking = async ({ id, handleDeleteBookingSuccess, handleDeleteBookingFailure }) => {
     try {
-        const result = await axios.delete(`${BASE_URL}booking/${id}`)
+        const result = await axios.delete(`${BASE_URL}/booking/${id}`)
         if (result?.data?.message) {
             return handleDeleteBookingSuccess(result.message)
         }
@@ -234,7 +234,7 @@ export const deleteBooking = async ({ id, handleDeleteBookingSuccess, handleDele
 
 export const updateBooking = async ({ id, body, handleUpdateBookingSuccess, handleUpdateBookingFailure }) => {
     try {
-        const result = await axios.put(`${BASE_URL}booking/${id}`, { ...body })
+        const result = await axios.put(`${BASE_URL}/booking/${id}`, { ...body })
         if (result?.data?.message) {
             return handleUpdateBookingSuccess(result.data?.message)
             console.log('updateBooking >>>>  ', result?.data);
@@ -251,7 +251,7 @@ export const fetchReviews = async ({ owner_id, setReviews }) => {
         if (owner_id) {
             query += `?owner_id=${owner_id}`
         }
-        const result = await axios.get(`${BASE_URL}review${query}`)
+        const result = await axios.get(`${BASE_URL}/review${query}`)
         if (result?.data?.length) {
             setReviews(result?.data)
         }
@@ -263,7 +263,7 @@ export const fetchReviews = async ({ owner_id, setReviews }) => {
 
 export const createReview = async ({ body, handleCreateReviewSuccess, handleCreateReviewFailure }) => {
     try {
-        const result = await axios.post(`${BASE_URL}review`, { ...body })
+        const result = await axios.post(`${BASE_URL}/review`, { ...body })
         if (result?.data) {
             return handleCreateReviewSuccess(result.data)
         }
@@ -276,7 +276,7 @@ export const createReview = async ({ body, handleCreateReviewSuccess, handleCrea
 
 export const deleteReview = async ({ id, handleDeleteReviewSuccess, handleDeleteReviewFailure }) => {
     try {
-        const result = await axios.delete(`${BASE_URL}review/${id}`)
+        const result = await axios.delete(`${BASE_URL}/review/${id}`)
         if (result?.data?.message) {
             return handleDeleteReviewSuccess(result.message)
         }
@@ -289,7 +289,7 @@ export const deleteReview = async ({ id, handleDeleteReviewSuccess, handleDelete
 
 export const fetchUsers = async ({ setUsers }) => {
     try {
-        const result = await axios.get(`${BASE_URL}user`)
+        const result = await axios.get(`${BASE_URL}/user`)
         if (result?.data?.length) {
             setUsers(result?.data)
         }
@@ -301,8 +301,8 @@ export const fetchUsers = async ({ setUsers }) => {
 
 export const deleteUser = async ({ id, handleDeleteUserSuccess, handleDeleteUserFailure }) => {
     try {
-        console.log(`URL >> ${BASE_URL}user/delete/${id}`);
-        const result = await axios.delete(`${BASE_URL}user/delete/${id}`)
+        console.log(`URL >> ${BASE_URL}/user/delete/${id}`);
+        const result = await axios.delete(`${BASE_URL}/user/delete/${id}`)
         if (result?.data?.message) {
             return handleDeleteUserSuccess(result.message)
         }
