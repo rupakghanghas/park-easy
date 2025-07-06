@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        const mongoURI = process.env.DB_URI || 'mongodb+srv://rkghanghas999:CxergQ7UaDEqJwFQ@cluster1.voottms.mongodb.net/db1?retryWrites=true&w=majority&appName=Cluster1';
+        const mongoURI = process.env.DB_URI;
+        if (!mongoURI) {
+            throw new Error('DB_URI environment variable is required');
+        }
         await mongoose.connect(mongoURI)
          console.log('DB Connected Successfully...')
      } catch (error) {

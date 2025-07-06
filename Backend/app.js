@@ -19,7 +19,10 @@ app.use(bodyParser.json())
 
 const port = process.env.PORT || 5100;
 
-app.use(cors())
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  credentials: true
+}))
 
 // Connect Database
 connectDB();

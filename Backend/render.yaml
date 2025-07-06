@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: parking-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_URI
+        sync: false
+      - key: SECRET_JWT_CODE
+        sync: false
+      - key: SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false 
