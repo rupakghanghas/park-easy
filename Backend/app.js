@@ -27,8 +27,13 @@ app.use(cors({
 // Connect Database
 connectDB();
 
+// Health check route (no authentication required)
+app.get('/', async (req, res) => {
+    res.json({ message: 'Parking Reservation API is running!' })
+})
 
-app.get('/', isLoggedIn, async (req, res) => {
+// Protected route example
+app.get('/protected', isLoggedIn, async (req, res) => {
     res.json({ message: 'Hello world!'})
 })
 
