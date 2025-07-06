@@ -18,7 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 const port = process.env.PORT || 5100;
-
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "https://parkeasy-frontend-ve31.onrender.com",
+  credentials: true
+}))
 app.use(cors())
 
 // Connect Database
