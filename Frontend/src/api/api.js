@@ -1,5 +1,7 @@
 import axios from 'axios'
 const BASE_URL = (process.env.REACT_APP_API_URL || "http://localhost:5100/").replace(/\/$/, '')
+console.log('API Base URL:', BASE_URL)
+console.log('Environment Variable:', process.env.REACT_APP_API_URL)
 
 export const fetchParkings = async ({ user_id, setParkings }) => {
     try {

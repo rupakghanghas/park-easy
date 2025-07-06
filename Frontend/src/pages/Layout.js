@@ -89,7 +89,7 @@ const Layout = () => {
             <footer className="container-fluid p-5 mt-5">
                 <div className="row">
                     <div className="col-md-4">
-                        <p>Copyright &copy; 2023 by Ankit Mohanty</p>
+                        <p>Copyright &copy; 2025 by Rupak Ghanghas</p>
                     </div>
                     <div className="col-md-4">
                     </div>

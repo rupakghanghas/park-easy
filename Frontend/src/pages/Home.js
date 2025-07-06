@@ -6,7 +6,7 @@ function Home() {
     <div>
       <div className='banner'>
         <div className='overlay'>
-          <h1>Looking for parking. <br /> <span>You have came to right place</span></h1>
+          <h1 className='hero-title'>Find Your Perfect Parking Spot! <br /> <span>Smart Parking Solutions for Modern Cities</span></h1>
         </div>
       </div>
 
