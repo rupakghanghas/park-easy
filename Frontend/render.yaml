@@ -7,4 +7,4 @@ services:
     staticPublishPath: ./build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://parking-backend.onrender.com 
+        value: https://parking-backend-d3aa.onrender.com
